@@ -14,7 +14,7 @@ public class Tgitch {
         this.chatId = chatId;
     }
 
-    public void sendMessage(String text) {
+    public void sendMessage(String text) throws IOException {
         String[] data = {
                 "chat_id", chatId,
                 "parse_mode", "HTML",
@@ -22,11 +22,7 @@ public class Tgitch {
                 "text", text
         };
 
-        try {
-            sendPost(apiUrl + "/sendMessage", data);
-        } catch (IOException e) {
-            Logger.add(e);
-        }
+        sendPost(apiUrl + "/sendMessage", data);
     }
 
     private Connection.Response sendPost(String url, String[] data) throws IOException {
@@ -35,7 +31,7 @@ public class Tgitch {
                 .data(data)
                 .method(Connection.Method.POST)
                 .ignoreContentType(true)
-                .ignoreHttpErrors(true)
+                // .ignoreHttpErrors(true)
                 .timeout(0)
                 .execute();
     }
