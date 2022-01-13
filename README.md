@@ -21,3 +21,7 @@ Telegram BotFather:
 Twitch Chat OAuth Password Generator:
 
 - https://twitchapps.com/tmi/
+
+Example:
+
+- https://t.me/helltar_twitch
