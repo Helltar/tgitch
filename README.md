@@ -1,6 +1,6 @@
 ## Tgitch
 
-A simple code for creating simple bot for send messages from your **Twitch** chat to you channel in **Telegram**
+Simple code for a simple bot that sends messages from your **Twitch**-chat to your **Telegram**-channel.
 
 Modify two files:
 ```
