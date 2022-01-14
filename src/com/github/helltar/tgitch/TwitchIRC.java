@@ -23,11 +23,15 @@ public class TwitchIRC {
     }
 
     public void connect() throws IOException {
+        if (socket != null) {
+            if (socket.isConnected()) {
+                socket.close();
+            }
+        }
+
         socket = new Socket("irc.chat.twitch.tv", 6667);
 
-        writer = new BufferedWriter(
-                new OutputStreamWriter(socket.getOutputStream(),
-                        Charset.forName(StandardCharsets.UTF_8.name())));
+        writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
         reader = new BufferedReader(
                 new InputStreamReader(socket.getInputStream(),
@@ -40,30 +44,29 @@ public class TwitchIRC {
         writer.flush();
 
         while ((line = reader.readLine()) != null) {
-            if (line.indexOf("004") >= 0) {
-                // logged
+            if (line.indexOf("001") >= 0) {
+                writer.write("JOIN " + channel + "\r\n");
+                writer.flush();
                 break;
-            } else if (line.indexOf("433") >= 0) {
-                Logger.add("nickname is already in use");
             }
         }
-
-        writer.write("JOIN " + channel + "\r\n");
-        writer.flush();
     }
 
     public String getUpdates() throws IOException {
-        String line = reader.readLine();
-
-        if (line != null) {
+        if ((line = reader.readLine()) != null) {
             if (line.toLowerCase().startsWith("PING ")) {
-                writer.write("PONG " + line.substring(5) + "\r\n");
+                writer.write("PONG :tmi.twitch.tv\r\n");
                 writer.flush();
+                return "PONG tmi.twitch.tv";
             } else {
-                return line.replaceAll("(.*?)PRIVMSG #(.*?) :(.*?)", "<b>$2</b>: $3");
+                if (line.indexOf("PRIVMSG") >= 0) {
+                    return line.replaceAll("(.*?)PRIVMSG #(.*?) :(.*?)", "<b>$2</b>: $3");
+                } else {
+                    return "";
+                }
             }
         }
 
-        return "";
+        return "null";
     }
 }

@@ -10,8 +10,7 @@ public class Utils {
         String line = "";
 
         try {
-            BufferedReader reader;
-            reader = new BufferedReader(new FileReader(filename));
+            BufferedReader reader = new BufferedReader(new FileReader(filename));
             line = reader.readLine();
             reader.close();
         } catch (IOException e) {
