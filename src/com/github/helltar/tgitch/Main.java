@@ -24,8 +24,12 @@ public class Main {
 
         connectToTwitch();
 
-        while (true) {
-            getUpdates();
+        try {
+            while (true) {
+                getUpdates();
+            }
+        } catch (IOException e) {
+            Logger.add(e);
         }
     }
 
@@ -50,20 +54,16 @@ public class Main {
         }
     }
 
-    public static void getUpdates() {
-        try {
-            String msg = twitchIRC.getUpdates();
+    public static void getUpdates() throws IOException {
+        String msg = twitchIRC.getUpdates();
 
-            if (!msg.isEmpty()) {
-                if (msg != "null") {
-                    sendMessageToTg(msg);
-                } else {
-                    sendMessageToTg("reconnect ...");
-                    connectToTwitch();
-                }
+        if (!msg.isEmpty()) {
+            if (msg != "null") {
+                sendMessageToTg(msg);
+            } else {
+                sendMessageToTg("Reconnecting - ↻");
+                connectToTwitch();
             }
-        } catch (IOException e) {
-            Logger.add(e);
         }
     }
 }

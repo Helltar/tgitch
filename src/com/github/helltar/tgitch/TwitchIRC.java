@@ -54,7 +54,7 @@ public class TwitchIRC {
 
     public String getUpdates() throws IOException {
         if ((line = reader.readLine()) != null) {
-            if (line.toLowerCase().startsWith("PING ")) {
+            if (line.indexOf("PING :tmi.twitch.tv") >= 0) {
                 writer.write("PONG :tmi.twitch.tv\r\n");
                 writer.flush();
                 return "PONG tmi.twitch.tv";
