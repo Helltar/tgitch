@@ -33,9 +33,8 @@ public class TwitchIRC {
 
         writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
-        reader = new BufferedReader(
-                new InputStreamReader(socket.getInputStream(),
-                        Charset.forName(StandardCharsets.UTF_8.name())));
+        reader = new BufferedReader(new InputStreamReader(socket.getInputStream(),
+                Charset.forName(StandardCharsets.UTF_8.name())));
 
         String channel = "#" + username;
 
@@ -54,16 +53,14 @@ public class TwitchIRC {
 
     public String getUpdates() throws IOException {
         if ((line = reader.readLine()) != null) {
-            if (line.indexOf("PING :tmi.twitch.tv") >= 0) {
+            if (line.indexOf("PRIVMSG") >= 0) {
+                return line.replaceAll("\\<", "&lt;").replaceAll("(.*?)PRIVMSG #(.*?) :(.*?)", "<b>$2</b> ✎ $3");
+            } else if (line.indexOf("PING :tmi.twitch.tv") >= 0) {
                 writer.write("PONG :tmi.twitch.tv\r\n");
                 writer.flush();
                 return "PONG → 🏓";
             } else {
-                if (line.indexOf("PRIVMSG") >= 0) {
-                    return line.replaceAll("(.*?)PRIVMSG #(.*?) :(.*?)", "<b>$2</b>: $3");
-                } else {
-                    return "";
-                }
+                return "";
             }
         }
 

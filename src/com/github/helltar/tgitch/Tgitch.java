@@ -18,7 +18,6 @@ public class Tgitch {
         String[] data = {
                 "chat_id", chatId,
                 "parse_mode", "HTML",
-                "disable_web_page_preview", "true",
                 "text", text
         };
 
