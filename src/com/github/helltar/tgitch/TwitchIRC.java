@@ -57,7 +57,7 @@ public class TwitchIRC {
             if (line.indexOf("PING :tmi.twitch.tv") >= 0) {
                 writer.write("PONG :tmi.twitch.tv\r\n");
                 writer.flush();
-                return "PONG tmi.twitch.tv";
+                return "PONG → 🏓";
             } else {
                 if (line.indexOf("PRIVMSG") >= 0) {
                     return line.replaceAll("(.*?)PRIVMSG #(.*?) :(.*?)", "<b>$2</b>: $3");

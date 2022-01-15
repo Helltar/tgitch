@@ -36,10 +36,10 @@ public class Main {
     public static void connectToTwitch() {
         try {
             twitchIRC.connect();
-            sendMessageToTg("Logged - ✅");
+            sendMessageToTg("Logged → ✅");
         } catch (IOException e) {
             Logger.add(e);
-            sendMessageToTg("Login error - ❌");
+            sendMessageToTg("Login error → ❌");
         }
     }
 
@@ -61,7 +61,7 @@ public class Main {
             if (msg != "null") {
                 sendMessageToTg(msg);
             } else {
-                sendMessageToTg("Reconnecting - ↻");
+                sendMessageToTg("Reconnecting → 🔁");
                 connectToTwitch();
             }
         }
