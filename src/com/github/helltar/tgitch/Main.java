@@ -16,13 +16,16 @@ public class Main {
     public static Tgitch tgitchBot;
     public static TwitchIRC twitchIRC;
 
+    public static String channel, username;
+
     public static void main(String[] args) {
+        channel = getStringFromFile(TWITCH_CHANNEL_FILE);
+        username = getStringFromFile(TWITCH_USERNAME_FILE);
+
         tgitchBot = new Tgitch(getStringFromFile(TG_TOKEN_FILE),
                 "@" + getStringFromFile(TG_CHANNEL_FILE)); // @ - for channels
 
-        twitchIRC = new TwitchIRC(getStringFromFile(TWITCH_CHANNEL_FILE),
-                getStringFromFile(TWITCH_USERNAME_FILE),
-                getStringFromFile(TWITCH_OAUTH_FILE));
+        twitchIRC = new TwitchIRC(channel, username, getStringFromFile(TWITCH_OAUTH_FILE));
 
         connectToTwitch();
 
@@ -32,16 +35,17 @@ public class Main {
             }
         } catch (IOException e) {
             Logger.add(e);
+            sendMessageToTg(e.getMessage());
         }
     }
 
     public static void connectToTwitch() {
         try {
             twitchIRC.connect();
-            sendMessageToTg("Logged → ✅");
+            sendMessageToTg("✅ → Logged\n📢 → " + channel + "\n😎 → " + username );
         } catch (IOException e) {
             Logger.add(e);
-            sendMessageToTg("Login error → ❌");
+            sendMessageToTg("❌ → Login error");
         }
     }
 
@@ -63,7 +67,7 @@ public class Main {
             if (msg != "null") {
                 sendMessageToTg(msg);
             } else {
-                sendMessageToTg("Reconnecting → 🔁");
+                sendMessageToTg("🔁 → Reconnecting");
                 connectToTwitch();
             }
         }

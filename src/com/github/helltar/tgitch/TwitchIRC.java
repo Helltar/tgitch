@@ -54,12 +54,13 @@ public class TwitchIRC {
         if ((line = reader.readLine()) != null) {
             if (line.indexOf("PRIVMSG") >= 0) {
                 return line.replaceAll("\\<", "&lt;")
+                        // TODO: :|
                         .replaceAll(":(.*?)!(.*?)@(.*?) PRIVMSG #(.*?) :(.*?)",
                                 "<b>$1</b> ✎ $5");
             } else if (line.indexOf("PING :tmi.twitch.tv") >= 0) {
                 writer.write("PONG :tmi.twitch.tv\r\n");
                 writer.flush();
-                return "PONG → 🏓";
+                return "🏓 → PONG";
             } else {
                 return "";
             }
