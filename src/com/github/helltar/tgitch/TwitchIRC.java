@@ -11,13 +11,14 @@ import java.nio.charset.StandardCharsets;
 
 public class TwitchIRC {
 
-    private String username, token, line;
+    private String channel, username, token, line;
 
     private Socket socket;
     private BufferedWriter writer;
     private BufferedReader reader;
 
-    public TwitchIRC(String username, String token) {
+    public TwitchIRC(String channel, String username, String token) {
+        this.channel = "#" + channel;
         this.username = username;
         this.token = token;
     }
@@ -36,8 +37,6 @@ public class TwitchIRC {
         reader = new BufferedReader(new InputStreamReader(socket.getInputStream(),
                 Charset.forName(StandardCharsets.UTF_8.name())));
 
-        String channel = "#" + username;
-
         writer.write("PASS " + token + "\r\n");
         writer.write("NICK " + username + "\r\n");
         writer.flush();
@@ -54,7 +53,9 @@ public class TwitchIRC {
     public String getUpdates() throws IOException {
         if ((line = reader.readLine()) != null) {
             if (line.indexOf("PRIVMSG") >= 0) {
-                return line.replaceAll("\\<", "&lt;").replaceAll("(.*?)PRIVMSG #(.*?) :(.*?)", "<b>$2</b> ✎ $3");
+                return line.replaceAll("\\<", "&lt;")
+                        .replaceAll(":(.*?)!(.*?)@(.*?) PRIVMSG #(.*?) :(.*?)",
+                                "<b>$1</b> ✎ $5");
             } else if (line.indexOf("PING :tmi.twitch.tv") >= 0) {
                 writer.write("PONG :tmi.twitch.tv\r\n");
                 writer.flush();

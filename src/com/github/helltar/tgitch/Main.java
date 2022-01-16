@@ -10,7 +10,8 @@ public class Main {
             TG_TOKEN_FILE = "telegram_token" + EXT_FILE,
             TG_CHANNEL_FILE = "telegram_channel" + EXT_FILE,
             TWITCH_OAUTH_FILE = "twitch_oauth" + EXT_FILE,
-            TWITCH_USERNAME_FILE = "twitch_username" + EXT_FILE;
+            TWITCH_USERNAME_FILE = "twitch_username" + EXT_FILE,
+            TWITCH_CHANNEL_FILE = "twitch_channel" + EXT_FILE;
 
     public static Tgitch tgitchBot;
     public static TwitchIRC twitchIRC;
@@ -19,7 +20,8 @@ public class Main {
         tgitchBot = new Tgitch(getStringFromFile(TG_TOKEN_FILE),
                 "@" + getStringFromFile(TG_CHANNEL_FILE)); // @ - for channels
 
-        twitchIRC = new TwitchIRC(getStringFromFile(TWITCH_USERNAME_FILE),
+        twitchIRC = new TwitchIRC(getStringFromFile(TWITCH_CHANNEL_FILE),
+                getStringFromFile(TWITCH_USERNAME_FILE),
                 getStringFromFile(TWITCH_OAUTH_FILE));
 
         connectToTwitch();
