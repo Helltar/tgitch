@@ -1,13 +1,16 @@
 ## Tgitch
 
-Simple code for a simple bot that sends messages from your **Twitch**-chat to your **Telegram**-channel.
+Simple code for a simple bot which sends messages from selected **Twitch**-chat to your **Telegram**-channel.
 
-Modify two files:
+Modify three files:
+
 ```
 telegram_channel.txt
+twitch_channel.txt
 twitch_username.txt
 ```
 ... and create two files with you tokens:
+
 ```
 telegram_token.txt
 twitch_oauth.txt
