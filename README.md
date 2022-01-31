@@ -2,6 +2,8 @@
 
 Simple code for a simple bot which sends messages from selected **Twitch**-chat to your **Telegram**-channel.
 
+- https://github.com/Helltar/tgitch/releases/latest
+
 Modify three files:
 
 ```
@@ -9,13 +11,17 @@ telegram_channel.txt
 twitch_channel.txt
 twitch_username.txt
 ```
-... and create two files with you tokens:
+... and two more with you tokens:
 
 ```
 telegram_token.txt
 twitch_oauth.txt
 ```
 **Done.**
+
+```
+java -jar tgitch.jar
+```
 
 Telegram BotFather:
 
