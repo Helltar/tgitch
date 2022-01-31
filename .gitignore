@@ -1,4 +1,6 @@
-.vscode/
+.idea/
+out/
+*.iml
 
 telegram_token.txt
 twitch_oauth.txt
