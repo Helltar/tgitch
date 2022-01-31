@@ -27,7 +27,7 @@ public class Tgitch {
                 .data(data)
                 .method(Connection.Method.POST)
                 .ignoreContentType(true)
-                .ignoreHttpErrors(true)
+                //.ignoreHttpErrors(true)
                 .timeout(0)
                 .execute();
     }

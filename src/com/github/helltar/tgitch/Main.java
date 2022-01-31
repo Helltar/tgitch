@@ -36,8 +36,7 @@ public class Main {
                 getUpdates();
             }
         } catch (IOException e) {
-            Logger.add(e);
-            sendMessageToTg(e.getMessage());
+            addLog(e);
         }
     }
 
@@ -46,7 +45,7 @@ public class Main {
             twitchIRC.connect();
             sendMessageToTg("✅ → Logged\n📢 → " + channel + "\n😎 → " + username);
         } catch (IOException e) {
-            Logger.add(e);
+            addLog(e);
             sendMessageToTg("❌ → Login error");
         }
     }
@@ -56,7 +55,7 @@ public class Main {
             tgitchBot.sendMessage(text);
             Thread.sleep(1000);
         } catch (IOException | InterruptedException e) {
-            Logger.add(e);
+            addLog(e);
         }
     }
 
@@ -71,5 +70,13 @@ public class Main {
                 connectToTwitch();
             }
         }
+    }
+
+    public static void addLog(String msg) {
+        System.out.println(msg);
+    }
+
+    public static void addLog(Exception e) {
+        addLog(e.getMessage());
     }
 }

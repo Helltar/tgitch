@@ -14,7 +14,7 @@ public class Utils {
             line = reader.readLine();
             reader.close();
         } catch (IOException e) {
-            Logger.add(e);
+            Main.addLog(e);
         }
 
         return line;
