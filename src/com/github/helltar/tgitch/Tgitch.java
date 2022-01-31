@@ -7,7 +7,8 @@ import org.jsoup.Jsoup;
 
 public class Tgitch {
 
-    private String chatId, apiUrl = "https://api.telegram.org/";
+    private final String chatId;
+    private String apiUrl = "https://api.telegram.org/";
 
     public Tgitch(String token, String chatId) {
         apiUrl += token;
@@ -21,12 +22,8 @@ public class Tgitch {
                 "text", text
         };
 
-        sendPost(apiUrl + "/sendMessage", data);
-    }
-
-    private Connection.Response sendPost(String url, String[] data) throws IOException {
-        return Jsoup
-                .connect(url)
+        Jsoup
+                .connect(apiUrl + "/sendMessage")
                 .data(data)
                 .method(Connection.Method.POST)
                 .ignoreContentType(true)

@@ -11,7 +11,8 @@ import java.nio.charset.StandardCharsets;
 
 public class TwitchIRC {
 
-    private String channel, username, token, line;
+    private final String channel, username, token;
+    private String line;
 
     private Socket socket;
     private BufferedWriter writer;
@@ -42,7 +43,7 @@ public class TwitchIRC {
         writer.flush();
 
         while ((line = reader.readLine()) != null) {
-            if (line.indexOf("001") >= 0) {
+            if (line.contains("001")) {
                 writer.write("JOIN " + channel + "\r\n");
                 writer.flush();
                 break;
@@ -52,12 +53,12 @@ public class TwitchIRC {
 
     public String getUpdates() throws IOException {
         if ((line = reader.readLine()) != null) {
-            if (line.indexOf("PRIVMSG") >= 0) {
-                return line.replaceAll("\\<", "&lt;")
+            if (line.contains("PRIVMSG")) {
+                return line.replaceAll("<", "&lt;")
                         // TODO: :|
                         .replaceAll(":(.*?)!(.*?)@(.*?) PRIVMSG #(.*?) :(.*?)",
                                 "<b>$1</b> ✎ $5");
-            } else if (line.indexOf("PING :tmi.twitch.tv") >= 0) {
+            } else if (line.contains("PING :tmi.twitch.tv")) {
                 writer.write("PONG :tmi.twitch.tv\r\n");
                 writer.flush();
                 return "🏓 → PONG";

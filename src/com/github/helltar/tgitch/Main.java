@@ -6,7 +6,8 @@ import java.io.IOException;
 
 public class Main {
 
-    public static final String EXT_FILE = ".txt",
+    public static final String
+            EXT_FILE = ".txt",
             TG_TOKEN_FILE = "telegram_token" + EXT_FILE,
             TG_CHANNEL_FILE = "telegram_channel" + EXT_FILE,
             TWITCH_OAUTH_FILE = "twitch_oauth" + EXT_FILE,
@@ -18,6 +19,7 @@ public class Main {
 
     public static String channel, username;
 
+    @SuppressWarnings("InfiniteLoopStatement")
     public static void main(String[] args) {
         channel = getStringFromFile(TWITCH_CHANNEL_FILE);
         username = getStringFromFile(TWITCH_USERNAME_FILE);
@@ -42,7 +44,7 @@ public class Main {
     public static void connectToTwitch() {
         try {
             twitchIRC.connect();
-            sendMessageToTg("✅ → Logged\n📢 → " + channel + "\n😎 → " + username );
+            sendMessageToTg("✅ → Logged\n📢 → " + channel + "\n😎 → " + username);
         } catch (IOException e) {
             Logger.add(e);
             sendMessageToTg("❌ → Login error");
@@ -53,9 +55,7 @@ public class Main {
         try {
             tgitchBot.sendMessage(text);
             Thread.sleep(1000);
-        } catch (IOException e) {
-            Logger.add(e);
-        } catch (InterruptedException e) {
+        } catch (IOException | InterruptedException e) {
             Logger.add(e);
         }
     }
@@ -64,7 +64,7 @@ public class Main {
         String msg = twitchIRC.getUpdates();
 
         if (!msg.isEmpty()) {
-            if (msg != "null") {
+            if (!msg.equals("null")) {
                 sendMessageToTg(msg);
             } else {
                 sendMessageToTg("🔁 → Reconnecting");
