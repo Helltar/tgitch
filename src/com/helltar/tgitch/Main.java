@@ -1,6 +1,6 @@
-package com.github.helltar.tgitch;
+package com.helltar.tgitch;
 
-import static com.github.helltar.tgitch.Utils.getStringFromFile;
+import static com.helltar.tgitch.Utils.getStringFromFile;
 
 import java.io.IOException;
 

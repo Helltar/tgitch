@@ -1,4 +1,4 @@
-package com.github.helltar.tgitch;
+package com.helltar.tgitch;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
