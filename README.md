@@ -11,7 +11,7 @@ telegram_channel.txt
 twitch_channel.txt
 twitch_username.txt
 ```
-... and two more with you tokens:
+... and two more with your tokens:
 
 ```
 telegram_token.txt
